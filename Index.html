@@ -1,1 +1,1048 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduVision - Plataforma de Ensino Inteligente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #7C3AED;
+            --primary-dark: #6D28D9;
+            --primary-light: #8B5CF6;
+            --secondary: #06D6A0;
+            --accent: #FF6B6B;
+            --dark: #0F0F23;
+            --darker: #090917;
+            --dark-card: #1A1A2E;
+            --light: #FFFFFF;
+            --gray: #94A3B8;
+            --gray-dark: #475569;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gradient-primary: linear-gradient(135deg, #7C3AED 0%, #06D6A0 100%);
+            --gradient-secondary: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+            --gradient-dark: linear-gradient(135deg, #0F0F23 0%, #1A1A2E 100%);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 35px 60px -15px rgba(0, 0, 0, 0.7);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--gradient-dark);
+            color: var(--light);
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+
+        .glass-dark {
+            background: rgba(15, 15, 35, 0.8);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Layout */
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: var(--light);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(123, 97, 255, 0.2);
+            color: var(--primary-light);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: var(--dark-card);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow-xl);
+            backdrop-filter: blur(20px);
+        }
+
+        .card-1 {
+            top: 10%;
+            left: 0;
+            width: 200px;
+            transform: rotate(-5deg);
+        }
+
+        .card-2 {
+            bottom: 20%;
+            right: 0;
+            width: 180px;
+            transform: rotate(3deg);
+        }
+
+        .card-3 {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(2deg);
+            width: 220px;
+        }
+
+        /* Courses Grid */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .view-all {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .view-all:hover {
+            gap: 12px;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .course-card {
+            background: var(--dark-card);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .course-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .course-header {
+            position: relative;
+            height: 160px;
+            overflow: hidden;
+        }
+
+        .course-image {
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+        }
+
+        .course-level {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .course-content {
+            padding: 25px;
+        }
+
+        .course-category {
+            display: inline-block;
+            background: rgba(123, 97, 255, 0.2);
+            color: var(--primary-light);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .course-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .course-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .instructor-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .course-price {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(123, 97, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Video Player Section */
+        .video-section {
+            margin-bottom: 50px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
+        }
+
+        .video-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-container:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .video-info {
+            color: white;
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .video-description {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            margin-bottom: 50px;
+        }
+
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .progress-card {
+            background: var(--dark-card);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .progress-percentage {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(var(--rotation, 0deg)); }
+            50% { transform: translateY(-20px) rotate(var(--rotation, 0deg)); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .courses-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 15px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .search-bar {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .floating-card {
+                display: none;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .course-card {
+                margin: 0 -10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header fade-in">
+            <div class="logo">
+                <div class="logo-icon">🚀</div>
+                <span>EduVision</span>
+            </div>
+            
+            <div class="nav-actions">
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Buscar cursos, instrutores...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                
+                <div class="user-profile">
+                    <div class="user-avatar">JS</div>
+                    <span>João Silva</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content fade-in">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Plataforma de Ensino #1 no Brasil</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Transforme sua 
+                    <span style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">carreira</span>
+                    com educação de excelência
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Domine as habilidades mais requisitadas do mercado com cursos ministrados 
+                    pelos melhores especialistas. Aprenda no seu ritmo e construa o futuro dos seus sonhos.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Estudantes Ativos</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Cursos Premium</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfação</div>
+                    </div>
+                </div>
+                
+                <div class="hero-actions">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Começar Agora
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-play-circle"></i>
+                        Ver Demonstração
+                    </button>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="floating-card card-1 float-animation" style="--rotation: -5deg;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🎨</div>
+                    <h3 style="font-size: 1rem; margin-bottom: 5px;">UX Design Pro</h3>
+                    <p style="font-size: 0.8rem; color: var(--gray);">92% concluído</p>
+                </div>
+                
+                <div class="floating-card card-2 float-animation" style="--rotation: 3deg; animation-delay: 1s;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🤖</div>
+                    <h3 style="font-size: 1rem; margin-bottom: 5px;">AI Mastery</h3>
+                    <p style="font-size: 0.8rem; color: var(--gray);">45% concluído</p>
+                </div>
+                
+                <div class="floating-card card-3 float-animation" style="--rotation: 2deg; animation-delay: 2s;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">💻</div>
+                    <h3 style="font-size: 1rem; margin-bottom: 5px;">Full Stack</h3>
+                    <p style="font-size: 0.8rem; color: var(--gray);">78% concluído</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Courses -->
+        <section class="courses-section">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Cursos em Destaque</h2>
+                <a href="#" class="view-all">
+                    <span>Ver Todos</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card fade-in" style="animation-delay: 0.1s">
+                    <div class="course-header">
+                        <div class="course-image">
+                            <span>🤖</span>
+                        </div>
+                        <div class="course-level">AVANÇADO</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Inteligência Artificial</div>
+                        <h3 class="course-title">Machine Learning & Deep Learning</h3>
+                        <p class="course-description">
+                            Domine os algoritmos de ML e redes neurais profundas. 
+                            Projetos reais com TensorFlow e PyTorch.
+                        </p>
+                        <div class="course-meta">
+                            <div class="course-instructor">
+                                <div class="instructor-avatar">DR</div>
+                                <span>Dr. Roberto Alves</span>
+                            </div>
+                            <div class="course-duration">48h</div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">R$ 497</div>
+                            <button class="btn btn-primary">Inscrever-se</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 2 -->
+                <div class="course-card fade-in" style="animation-delay: 0.2s">
+                    <div class="course-header">
+                        <div class="course-image">
+                            <span>🚀</span>
+                        </div>
+                        <div class="course-level">INTERMEDIÁRIO</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Desenvolvimento</div>
+                        <h3 class="course-title">React Native - Apps Nativos</h3>
+                        <p class="course-description">
+                            Crie aplicativos mobile para iOS e Android com React Native. 
+                            Hooks, Context API e integrações nativas.
+                        </p>
+                        <div class="course-meta">
+                            <div class="course-instructor">
+                                <div class="instructor-avatar">AP</div>
+                                <span>Ana Pereira</span>
+                            </div>
+                            <div class="course-duration">36h</div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">R$ 397</div>
+                            <button class="btn btn-primary">Inscrever-se</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 3 -->
+                <div class="course-card fade-in" style="animation-delay: 0.3s">
+                    <div class="course-header">
+                        <div class="course-image">
+                            <span>📊</span>
+                        </div>
+                        <div class="course-level">INICIANTE</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">Data Science</div>
+                        <h3 class="course-title">Python para Análise de Dados</h3>
+                        <p class="course-description">
+                            Análise exploratória, visualização e storytelling com dados. 
+                            Pandas, NumPy, Matplotlib e Seaborn.
+                        </p>
+                        <div class="course-meta">
+                            <div class="course-instructor">
+                                <div class="instructor-avatar">CS</div>
+                                <span>Carlos Santos</span>
+                            </div>
+                            <div class="course-duration">32h</div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">R$ 347</div>
+                            <button class="btn btn-primary">Inscrever-se</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Player Section -->
+        <section class="video-section fade-in" style="animation-delay: 0.4s">
+            <div class="section-header">
+                <h2 class="section-title">Aula em Destaque</h2>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe 
+                        class="video-iframe"
+                        src="https://www.youtube.com/embed/jNQXAC9IVRw?modestbranding=1&rel=0&showinfo=0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                    <div class="video-overlay">
+                        <div class="video-info">
+                            <h3 class="video-title">Introdução ao Machine Learning</h3>
+                            <p class="video-description">Compreenda os fundamentos do aprendizado de máquina</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <div class="section-header fade-in" style="animation-delay: 0.5s">
+                <h2 class="section-title">Meu Progresso</h2>
+            </div>
+            
+            <div class="progress-grid">
+                <div class="progress-card fade-in" style="animation-delay: 0.6s">
+                    <div class="progress-header">
+                        <h3 class="progress-title">Machine Learning</h3>
+                        <div class="progress-percentage">65%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 65%"></div>
+                    </div>
+                    <p style="color: var(--gray); font-size: 0.9rem;">12 de 18 aulas concluídas</p>
+                </div>
+                
+                <div class="progress-card fade-in" style="animation-delay: 0.7s">
+                    <div class="progress-header">
+                        <h3 class="progress-title">React Native</h3>
+                        <div class="progress-percentage">42%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 42%"></div>
+                    </div>
+                    <p style="color: var(--gray); font-size: 0.9rem;">8 de 19 aulas concluídas</p>
+                </div>
+                
+                <div class="progress-card fade-in" style="animation-delay: 0.8s">
+                    <div class="progress-header">
+                        <h3 class="progress-title">UX Design</h3>
+                        <div class="progress-percentage">88%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 88%"></div>
+                    </div>
+                    <p style="color: var(--gray); font-size: 0.9rem;">15 de 17 aulas concluídas</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Initialize animations and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bars on scroll
+            const progressBars = document.querySelectorAll('.progress-fill');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.style.width;
+                        entry.target.style.width = '0';
+                        setTimeout(() => {
+                            entry.target.style.width = width;
+                        }, 300);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            progressBars.forEach(bar => observer.observe(bar));
+
+            // Add hover effects to course cards
+            const courseCards = document.querySelectorAll('.course-card');
+            courseCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.05)';
+            });
+            
+            searchInput.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+
+            // Simulate real-time user count update
+            setInterval(() => {
+                const userCount = document.querySelector('.stat-number');
+                if (userCount) {
+                    const currentCount = parseInt(userCount.textContent.replace('K+', '000'));
+                    const newCount = currentCount + Math.floor(Math.random() * 10);
+                    userCount.textContent = Math.floor(newCount / 1000) + 'K+';
+                }
+            }, 5000);
+
+            // Add loading animation to buttons
+            const buttons = document.querySelectorAll('.btn-primary');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando...';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        // Simulate success
+                        this.innerHTML = '<i class="fas fa-check"></i> Inscrito!';
+                        this.style.background = 'var(--success)';
+                    }, 2000);
+                });
+            });
+        });
+
+        // Parallax effect for floating cards
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const cards = document.querySelectorAll('.floating-card');
+            
+            cards.forEach((card, index) => {
+                const speed = 0.5 + (index * 0.1);
+                const yPos = -(scrolled * speed);
+                card.style.transform = `translateY(${yPos}px) rotate(${card.style.getPropertyValue('--rotation')})`;
+            });
+        });
+
+        // Simulate real-time notifications
+        function showNotification(message, type = 'info') {
+            // In a real app, this would show a toast notification
+            console.log(`Notification (${type}): ${message}`);
+        }
+
+        // Example: Show welcome notification after 3 seconds
+        setTimeout(() => {
+            showNotification('Bem-vindo de volta! Você tem 2 aulas pendentes hoje.', 'success');
+        }, 3000);
+    </script>
+</body>
+</html>
